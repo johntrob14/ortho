@@ -1,0 +1,9 @@
+{"train": "parity", "test": "parity", "C": 10.0, "n": 817, "n_cheat": 65, "auc_tfidf": 0.9850040916530278, "auc_len": 0.6183408346972176}
+{"train": "parity", "test": "sign", "C": 10.0, "n": 428, "n_cheat": 213, "auc_tfidf": 0.9565018015067146, "auc_len": 0.4047385085708047}
+{"train": "parity", "test": "pets_listed", "C": 10.0, "n": 389, "n_cheat": 295, "auc_tfidf": 0.9148214929679048, "auc_len": 0.27874143526866213}
+{"train": "sign", "test": "parity", "C": 10.0, "n": 817, "n_cheat": 65, "auc_tfidf": 0.9693739770867431, "auc_len": 0.3816591653027824}
+{"train": "sign", "test": "sign", "C": 10.0, "n": 428, "n_cheat": 213, "auc_tfidf": 0.9734905557375259, "auc_len": 0.5952614914291953}
+{"train": "sign", "test": "pets_listed", "C": 10.0, "n": 389, "n_cheat": 295, "auc_tfidf": 0.9434186801298232, "auc_len": 0.721258564731338}
+{"train": "pets_listed", "test": "parity", "C": 10.0, "n": 817, "n_cheat": 65, "auc_tfidf": 0.6826923076923077, "auc_len": 0.3816591653027824}
+{"train": "pets_listed", "test": "sign", "C": 10.0, "n": 428, "n_cheat": 213, "auc_tfidf": 0.9313680532809259, "auc_len": 0.5952614914291953}
+{"train": "pets_listed", "test": "pets_listed", "C": 10.0, "n": 389, "n_cheat": 295, "auc_tfidf": 0.9743238369996394, "auc_len": 0.721258564731338}

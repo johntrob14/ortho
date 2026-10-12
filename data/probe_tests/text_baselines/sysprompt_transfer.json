@@ -1,0 +1,8 @@
+{
+ "train": "very_hacker cheat 253 vs generic clean 118",
+ "test": "natural parity test",
+ "n": 823,
+ "n_cheat": 65,
+ "auc": 0.9570326770854475,
+ "side_auc": 0.9183568124474348
+}
