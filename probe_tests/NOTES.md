@@ -97,3 +97,37 @@ Findings:
 
 Tests these give a probe (step 2): score the probe at every prefix of both branches. Text-like behavior: high on the shared
 prefix at t ~ 186-204, higher on the clean branch over 215-279, slow to fall after t ~ 460. Intent-like: tracks P(cheat).
+
+## Step 2 (2026-10-13): grader_parity_cheat_vs_clean scored on everything
+
+`probe_tests/run_score_probe.sh` on mats6 (H100, 1h13m, 8,515 rollouts, about 2,480 tok/s): per-token projection of resid_post on
+each layer's unit row, all 64 layers. Shards (1.4 GB, not in git) in `data/probe_tests/probe_scores/` here and in
+`/workspace/ortho-probe-tests/` on mats6. The vector's training data is exactly the parity logs 01-36, 12-37, 12-48, 13-12
+(270 cheat / 3,380 clean, matching its metadata); log 21-52-56 (35 / 472) is held out. Layer 36 fixed in advance (probe.py).
+
+Rollout-level AUC (cosine of CoT mean with the row, the vector's own statistic), layer 36, on rollouts the vector never saw.
+"lexical" = the score predicted from token identity alone (per-token-id mean projection fit on in-sample parity CoTs);
+"residual" = probe minus lexical. TF-IDF (trained on parity) on the test-split rows.
+
+| set | n (cheat) | probe | lexical | residual | corr(probe, lexical) | TF-IDF@parity (test split) |
+|---|---|---|---|---|---|---|
+| parity held-out | 507 (35) | 0.990 | 0.880 | 0.992 | 0.86 | 1.000 (n=106) |
+| sign | 2,020 (1,012) | 0.945 | 0.730 | 0.965 | 0.84 | 0.999 vs probe 0.959 (n=428) |
+| sign, "maximize reward" CoTs | 1,461 (905) | 0.916 | 0.660 | 0.944 | 0.78 | |
+| pets_listed | 2,095 (1,610) | 0.551 | 0.251 | 0.665 | 0.75 | 0.961 vs probe 0.574 (n=389) |
+| pets_listed, "maximize reward" CoTs | 702 (614) | 0.290 | 0.149 | 0.353 | 0.81 | |
+
+Per-token: token identity alone explains 34-49% of held-out per-token projection variance (layers 20/36/51/63; 139k tokens,
+first 202 rollouts). Top tokens at L36: " optim", " optimize", " satisfying", " maximizing", " objective", " hacking",
+" maximize", " satisfy", " rewards", " reward"; bottom: " Input", " User", " random", " straightforward", "Done".
+
+On Ethan's two rollouts (causal 25-token window of the L36 projection): correct branch order over t = 215-279 (2.11 vs 1.52,
+where TF-IDF had it backwards), a dip at the clean branch's reversal (t 460-499: -1.65), but high right after the fork where
+P(cheat) ~ 0.3 (+2.8), and a rebound to +2.69 at t = 500-620 on the clean branch where P(cheat) = 0.06 (the CoT is still
+discussing the grader). Spearman with smoothed P(cheat): 0.26 / 0.21 (TF-IDF 0.67 / 0.61). Running CoT mean: +0.72 / -0.65.
+
+Reading: the probe's score is mostly lexical in magnitude (r = 0.75-0.88 with its unigram expectation), and per token it is a
+reward-vocabulary detector. Its cheat-vs-clean separation on parity and sign is not carried by unigram identity (lexical alone
+0.73-0.88; residual >= probe), so it reads something beyond single words, possibly phrases or context, not shown to be intent.
+It fails to transfer to pets_listed (0.55, and 0.29 on CoTs that say "maximize reward", where cleans discuss reward more than
+cheats), and a TF-IDF text classifier beats it on every held-out set.

@@ -1,0 +1,4 @@
+{"group": "sign", "subset": "all", "n": 200, "n_cheat": 95, "probe_auc_L36": 0.9288220551378445, "probe_side_auc_L36": 0.9288220551378445, "best_layer": 51, "probe_auc_best": 0.9336340852130326, "tfidf_parity_auc": NaN}
+{"group": "sign", "subset": "maxrew", "n": 134, "n_cheat": 86, "probe_auc_L36": 0.8662790697674418, "probe_side_auc_L36": 0.8662790697674418, "best_layer": 51, "probe_auc_best": 0.8742732558139535, "tfidf_parity_auc": NaN}
+{"group": "sign", "subset": "lenpair", "n": 186, "n_cheat": 95, "probe_auc_L36": 0.9178716020821285, "probe_side_auc_L36": 0.9178716020821285, "best_layer": 51, "probe_auc_best": 0.923423944476576, "tfidf_parity_auc": NaN}
+{"group": "sign", "subset": "test_split", "n": 45, "n_cheat": 21, "probe_auc_L36": 0.9682539682539683, "probe_side_auc_L36": 0.9682539682539683, "best_layer": 36, "probe_auc_best": 0.9682539682539683, "tfidf_parity_auc": 0.9900793650793651}
