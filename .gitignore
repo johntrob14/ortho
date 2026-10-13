@@ -17,3 +17,5 @@ nohup.out
 # Inspect logs (converted records live under data/inspect)
 *.eval
 data/probe_tests/probe_scores/
+data/probe_tests/prior/scores_natural/
+data/probe_tests/prior/scores_gen/
